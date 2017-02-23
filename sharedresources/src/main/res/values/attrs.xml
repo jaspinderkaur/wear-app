@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom Font (Roboto) in XML -->
+    <declare-styleable name="RobotoTextView">
+        <attr name="typeface" />
+    </declare-styleable>
+
+    <attr name="typeface" format="enum">
+        <enum name="black" value="0" />
+        <enum name="blackitalic" value="1" />
+        <enum name="bold" value="2" />
+        <enum name="bolditalic" value="3" />
+        <enum name="italic" value="4" />
+        <enum name="light" value="5" />
+        <enum name="lightitalic" value="6" />
+        <enum name="medium" value="7" />
+        <enum name="mediumitalic" value="8" />
+        <enum name="regular" value="9" />
+        <enum name="thin" value="10" />
+        <enum name="thinitalic" value="11" />
+    </attr>
+</resources>
