@@ -8,20 +8,8 @@ import java.util.HashMap;
 
 public class CustomFontManager {
 
-    private final static String CUSTOM_FONT_BASE_FILE_PATH = "fonts/Roboto-";
-
-    public final static int FONT_TYPE_BLACK = 0;
-    public final static int FONT_TYPE_BLACK_ITALIC = 1;
-    public final static int FONT_TYPE_BOLD = 2;
-    public final static int FONT_TYPE_BOLD_ITALIC = 3;
-    public final static int FONT_TYPE_ITALIC = 4;
-    public final static int FONT_TYPE_LIGHT = 5;
-    public final static int FONT_TYPE_LIGHT_ITALIC = 6;
-    public final static int FONT_TYPE_MEDIUM = 7;
-    public final static int FONT_TYPE_MEDIUM_ITALIC = 8;
-    public final static int FONT_TYPE_REGULAR = 9;
-    public final static int FONT_TYPE_THIN = 10;
-    public final static int FONT_TYPE_THIN_ITALIC = 11;
+    public final static int FONT_POIRET = 0;
+    public final static int FONT_LATO = 1;
 
     private static HashMap<Integer, Typeface> fontCache = new HashMap<>();
 
@@ -52,45 +40,15 @@ public class CustomFontManager {
                                            @NonNull int typefaceValue) throws IllegalArgumentException {
         String fontName;
         switch (typefaceValue) {
-            case FONT_TYPE_BLACK:
-                fontName = "Black";
+            case FONT_POIRET:
+                fontName = "PoiretOne-Regular";
                 break;
-            case FONT_TYPE_BLACK_ITALIC:
-                fontName = "BlackItalic";
-                break;
-            case FONT_TYPE_BOLD:
-                fontName = "Bold";
-                break;
-            case FONT_TYPE_BOLD_ITALIC:
-                fontName = "BoldItalic";
-                break;
-            case FONT_TYPE_ITALIC:
-                fontName = "Italic";
-                break;
-            case FONT_TYPE_LIGHT:
-                fontName = "Light";
-                break;
-            case FONT_TYPE_LIGHT_ITALIC:
-                fontName = "LightItalic";
-                break;
-            case FONT_TYPE_MEDIUM:
-                fontName = "Medium";
-                break;
-            case FONT_TYPE_MEDIUM_ITALIC:
-                fontName = "MediumItalic";
-                break;
-            case FONT_TYPE_REGULAR:
-                fontName = "Regular";
-                break;
-            case FONT_TYPE_THIN:
-                fontName = "Thin";
-                break;
-            case FONT_TYPE_THIN_ITALIC:
-                fontName = "ThinItalic";
+            case FONT_LATO:
+                fontName = "Lato-Regular";
                 break;
             default:
                 throw new IllegalArgumentException("Unknown `typeface` attribute value " + typefaceValue);
         }
-        return Typeface.createFromAsset(context.getAssets(), CUSTOM_FONT_BASE_FILE_PATH + fontName + ".ttf");
+        return Typeface.createFromAsset(context.getAssets(), "fonts/" + fontName + ".ttf");
     }
 }
