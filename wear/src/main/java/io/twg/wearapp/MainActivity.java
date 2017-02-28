@@ -10,7 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends WearableActivity {
+public class MainActivity extends WearableActivity  implements
+        DataListenerService.MessageListener {
 
     private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
             new SimpleDateFormat("HH:mm", Locale.US);
@@ -28,6 +29,16 @@ public class MainActivity extends WearableActivity {
         mContainerView = (BoxInsetLayout) findViewById(R.id.container);
         mTextView = (TextView) findViewById(R.id.text);
         mClockView = (TextView) findViewById(R.id.clock);
+
+        //Get data when activity launches
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String message = extras.getString(DataListenerService.DATA);
+            displayMessage(message);
+        }
+
+        //Set listener to receive updates
+        DataListenerService.setListener(this);
     }
 
     @Override
@@ -60,5 +71,14 @@ public class MainActivity extends WearableActivity {
             mTextView.setTextColor(getResources().getColor(android.R.color.black));
             mClockView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void receiveMessage(final String message) {
+        displayMessage(message);
+    }
+
+    private void displayMessage(String message) {
+        mTextView.setText(message);
     }
 }
