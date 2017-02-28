@@ -13,6 +13,9 @@
     <io.twg.sharedresources.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textColor="@android:color/black"
+        android:layout_centerInParent="true"
+        android:textSize="32sp"
+        android:text="I love poiret!" />
 
 </RelativeLayout>

@@ -10,17 +10,22 @@
 
     <io.twg.sharedresources.CustomTextView
         android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="I love poiret!"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/abc_text_size_large_material"
         app:layout_box="all" />
 
     <io.twg.sharedresources.CustomTextView
         android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:textColor="@android:color/black"
+        android:text="I love poiret!"
+        android:textSize="@dimen/abc_text_size_large_material"
         app:layout_box="all" />
 
 </android.support.wearable.view.BoxInsetLayout>
