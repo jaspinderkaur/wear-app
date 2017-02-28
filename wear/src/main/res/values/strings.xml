@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">WearApp</string>
     <string name="hello_world">Hello World!</string>
+
+    <!-- Key For Services -->
+    <string name="key_start_wearable_activity">/start-wearable-activity</string>
+    <string name="key_send_message_to_handheld">/send-message-to-handheld</string>
+
 </resources>
