@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.CapabilityApi;
 import com.google.android.gms.wearable.CapabilityInfo;
@@ -15,22 +16,15 @@ import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WearableConnectionManagement implements
         OnLifeCycleChangeListener,
         GoogleApiClient.ConnectionCallbacks,
         CapabilityApi.CapabilityListener {
 
     private static final String TAG = WearableConnectionManagement.class.getSimpleName();
-    public final static String DATA_PATH_TO_WEARABLE = "/vehicle-sensors";
-    public final static String DATA_PATH_TO_HANDHELD = "/wearable-sensors";
-    public static final String CAPABILITY_1 = "capability_node_connected";
 
     private Context mContext;
     private GoogleApiClient mGoogleApiClient;
-    private List<String> nodeList = new ArrayList<>();
 
     public WearableConnectionManagement(@NonNull Context context) {
         mContext = context;
@@ -78,22 +72,24 @@ public class WearableConnectionManagement implements
     }
     //endregion
 
-    public void sendMessageToWearable(String sensorName, String sensorValue) {
-        PutDataMapRequest dataMap = PutDataMapRequest.create(DATA_PATH_TO_WEARABLE);
-        dataMap.getDataMap().putString(sensorName, sensorValue); //Has to be a different value to call DataChanged
-        PutDataRequest request = dataMap.asPutDataRequest();
-        request.setUrgent();
-        Wearable.DataApi.putDataItem(mGoogleApiClient, request)
-                .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
-                    @Override
-                    public void onResult(DataApi.DataItemResult dataItemResult) {
-                        if (dataItemResult.getStatus().isSuccess()) {
-                            Log.v(TAG, "Data sent successfully");
-                        }else{
-                            Log.v(TAG, "Failed");
-                        }
-                    }
-                });
+    public void sendMessageToWearable(String value) {
+        PutDataMapRequest putDataMapRequest = PutDataMapRequest.create(mContext.getString(R.string.path_wearable_data));
+        putDataMapRequest.getDataMap().putString(mContext.getString(R.string.data), value);
+        PutDataRequest request = putDataMapRequest.asPutDataRequest();
+
+        PendingResult<DataApi.DataItemResult> pendingResult =
+                Wearable.DataApi.putDataItem(mGoogleApiClient, request);
+
+        pendingResult.setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+            @Override
+            public void onResult(DataApi.DataItemResult dataItemResult) {
+                if (dataItemResult.getStatus().isSuccess()) {
+                    Log.v(TAG, "Data sent successfully");
+                } else {
+                    Log.v(TAG, "Failed");
+                }
+            }
+        });
     }
 
 }

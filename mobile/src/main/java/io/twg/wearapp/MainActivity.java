@@ -1,13 +1,17 @@
 package io.twg.wearapp;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mSendMessage;
+    private RadioGroup mRadioGroup;
+    private TextView mTextView;
 
     private WearableConnectionManagement mWearableConnectionManagement;
 
@@ -19,14 +23,8 @@ public class MainActivity extends AppCompatActivity {
         //Connect to wearable
         mWearableConnectionManagement = new WearableConnectionManagement(this);
 
-        mSendMessage = (TextView) findViewById(R.id.tv_send_message);
-        mSendMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mWearableConnectionManagement.sendMessageToWearable("Message", "Its time to smile");
-            }
-        });
-
+        mTextView=(TextView)findViewById(R.id.text);
+        mRadioGroup=(RadioGroup)findViewById(R.id.radio_group);
     }
 
     @Override
@@ -39,5 +37,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mWearableConnectionManagement.onControllerResumed();
+    }
+
+    public void setColor(View view) {
+        int selectedId=mRadioGroup.getCheckedRadioButtonId();
+        RadioButton radioButton =(RadioButton)findViewById(selectedId);
+
+        String selectedColor = radioButton.getTag().toString();
+        mWearableConnectionManagement.sendMessageToWearable(selectedColor);
+
+        mTextView.setTextColor(Color.parseColor(selectedColor));
     }
 }

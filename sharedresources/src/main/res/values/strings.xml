@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Shared Resources</string>
+
+    <string name="data">data</string>
+    <!-- Key For Services -->
+    <string name="key_start_wearable_activity">/start-wearable-activity</string>
+    <string name="key_send_message_to_handheld">/send-message-to-handheld</string>
+    <string name="path_wearable_data">/wearable-data</string>
 </resources>

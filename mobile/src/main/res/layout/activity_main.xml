@@ -11,12 +11,52 @@
     tools:context="io.twg.wearapp.MainActivity">
 
     <io.twg.sharedresources.CustomTextView
-        android:id="@+id/tv_send_message"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Select color theme!"
         android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setColor"
+            android:tag="#FF0000"
+            android:text="Red" />
+
+        <RadioButton
+            android:id="@+id/blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setColor"
+            android:tag="#0000FF"
+            android:text="Blue" />
+
+        <RadioButton
+            android:id="@+id/green"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setColor"
+            android:tag="#00FF00"
+            android:text="Green" />
+    </RadioGroup>
+
+    <io.twg.sharedresources.CustomTextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textSize="32sp"
-        android:text="I love poiret!" />
+        android:text="I love poiret!"
+        android:textColor="@android:color/black"
+        android:textSize="32sp" />
 
 </RelativeLayout>

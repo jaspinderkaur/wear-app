@@ -18,14 +18,4 @@
         android:textSize="@dimen/abc_text_size_large_material"
         app:layout_box="all" />
 
-    <io.twg.sharedresources.CustomTextView
-        android:id="@+id/clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@android:color/black"
-        android:text="I love poiret!"
-        android:textSize="@dimen/abc_text_size_large_material"
-        app:layout_box="all" />
-
 </android.support.wearable.view.BoxInsetLayout>
