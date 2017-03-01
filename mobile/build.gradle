@@ -26,5 +26,7 @@ dependencies {
     })
     compile project(path: ':sharedresources')
     compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.google.android.gms:play-services-wearable:10.0.1'
+    compile 'com.google.android.gms:play-services-base:10.0.1'
     testCompile 'junit:junit:4.12'
 }

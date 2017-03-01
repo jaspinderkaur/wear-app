@@ -1,23 +1,19 @@
 package io.twg.wearapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.BoxInsetLayout;
-import android.view.View;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+public class MainActivity extends WearableActivity implements
+        DataListenerService.MessageListener {
 
-public class MainActivity extends WearableActivity {
-
-    private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
-            new SimpleDateFormat("HH:mm", Locale.US);
+    private WearableApplication mApplication;
 
     private BoxInsetLayout mContainerView;
     private TextView mTextView;
-    private TextView mClockView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +21,20 @@ public class MainActivity extends WearableActivity {
         setContentView(R.layout.activity_main);
         setAmbientEnabled();
 
+        mApplication = (WearableApplication) getApplicationContext();
+
         mContainerView = (BoxInsetLayout) findViewById(R.id.container);
         mTextView = (TextView) findViewById(R.id.text);
-        mClockView = (TextView) findViewById(R.id.clock);
+
+        //Get data when activity launches
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String message = extras.getString(getString(R.string.data));
+            configureUI(message);
+        }
+
+        //Set listener to receive updates
+        DataListenerService.setListener(this);
     }
 
     @Override
@@ -52,13 +59,37 @@ public class MainActivity extends WearableActivity {
         if (isAmbient()) {
             mContainerView.setBackgroundColor(getResources().getColor(android.R.color.black));
             mTextView.setTextColor(getResources().getColor(android.R.color.white));
-            mClockView.setVisibility(View.VISIBLE);
-
-            mClockView.setText(AMBIENT_DATE_FORMAT.format(new Date()));
         } else {
             mContainerView.setBackground(null);
             mTextView.setTextColor(getResources().getColor(android.R.color.black));
-            mClockView.setVisibility(View.GONE);
         }
     }
+
+    @Override
+    public void receiveMessage(final String message) {
+        configureUI(message);
+    }
+
+    private void configureUI(final String message) {
+        Handler mHandler = new Handler(getMainLooper());
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mTextView.setTextColor(Color.parseColor(message));
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mApplication.setMainViewLaunched(true);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mApplication.setMainViewLaunched(false);
+    }
+
 }
